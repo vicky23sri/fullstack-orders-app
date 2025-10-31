@@ -8,8 +8,12 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://fullstack-orders-app-hrev.vercel.app/'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: [
+      'http://localhost:3000',
+      'https://fullstack-orders-app-hrev.vercel.app',
+      'https://fullstack-orders-app-hrev-in94ase2g-vicky23sris-projects.vercel.app',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
   });
 
