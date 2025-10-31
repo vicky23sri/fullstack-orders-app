@@ -1,0 +1,83 @@
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:18-alpine
+    container_name: orders_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-orders_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./backend/prisma:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - orders_network_dev
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: orders_redis_dev
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_dev_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - orders_network_dev
+
+  # Backend API (Development mode with hot reload)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: orders_backend_dev
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-orders_db}
+      REDIS_URL: redis://redis:6379
+      PORT: 3001
+      NODE_ENV: development
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "3001:3001"
+      - "9229:9229"  # Debug port
+    networks:
+      - orders_network_dev
+    depends_on:
+      - postgres
+      - redis
+
+  # Frontend App (Development mode with hot reload)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: orders_frontend_dev
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    networks:
+      - orders_network_dev
+    depends_on:
+      - backend
+
+networks:
+  orders_network_dev:
+    driver: bridge
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:
