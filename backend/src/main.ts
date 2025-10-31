@@ -12,7 +12,7 @@ async function bootstrap() {
       'http://localhost:3000',
       'https://fullstack-orders-app-hrev.vercel.app',
       'https://fullstack-orders-app-hrev-in94ase2g-vicky23sris-projects.vercel.app',
-      'https://fullstack-orders-app-hrev-git-main-vicky23sris-projects.vercel.app/'
+      'https://fullstack-orders-app-hrev-git-main-vicky23sris-projects.vercel.app/',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
