@@ -10,9 +10,9 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://fullstack-orders-app-hrev.vercel.app',
+      'https://fullstack-orders-app.vercel.app',
       'https://fullstack-orders-app-hrev-in94ase2g-vicky23sris-projects.vercel.app',
-      'https://fullstack-orders-app-hrev-git-main-vicky23sris-projects.vercel.app/',
+      'https://fullstack-orders-lnb14i0dk-vicky23sris-projects.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
@@ -35,8 +35,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-
   const port = process.env.PORT || 3000;
   await app.listen(port);
   console.log(`Application is running on: http://localhost:${port}`);
