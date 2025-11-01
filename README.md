@@ -4,8 +4,8 @@ A modern full-stack application for managing orders with real-time updates, cach
 
 ## Live Demo
 
-- **Frontend**: [Deployed on Vercel](https://your-app.vercel.app)
-- **Backend**: [Deployed on Railway](https://your-backend.railway.app)
+- **Frontend**: [Deployed on Vercel](https://fullstack-orders-app-hrev.vercel.app/)
+- **Backend**: [Deployed on Railway](https://fullstack-orders-app-9ry9.onrender.com)
 - **API Documentation**: [Swagger UI](https://your-backend.railway.app/api)
 
 ## Architecture Overview
